@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: zenTalk-server
+  datasource:
+    url: jdbc:mysql://${zenTalk.mysql.host}:${zenTalk.mysql.port}/${zenTalk.mysql.database}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: ${zenTalk.mysql.username}
+    password: ${zenTalk.mysql.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: ${zenTalk.redis.host}
+    port: ${zenTalk.redis.port}
+    database: 0
+    timeout: 10000
+  jackson:
+    serialization:
+      write_dates_as_timestamps: true
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
