@@ -11,7 +11,7 @@ spring:
   redis:
     host: ${zenTalk.redis.host}
     port: ${zenTalk.redis.port}
-    database: 0
+    database: ${zenTalk.redis.database}
     timeout: 10000
   jackson:
     serialization:
