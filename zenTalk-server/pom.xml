@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>cn.cola</groupId>
-            <artifactId>zenTalk-common-starter</artifactId>
+            <artifactId>zenTalk-common</artifactId>
         </dependency>
     </dependencies>
 

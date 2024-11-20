@@ -16,8 +16,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>zenTalk-server</module>
-        <module>zenTalk-framwork</module>
-        <module>zenTalk-framwork/zenTalk-common-starter</module>
+        <module>zenTalk-common</module>
     </modules>
 
     <properties>
@@ -30,7 +29,7 @@
         <dependencies>
             <dependency>
                 <groupId>cn.cola</groupId>
-                <artifactId>zenTalk-common-starter</artifactId>
+                <artifactId>zenTalk-common</artifactId>
                 <version>${version}</version>
             </dependency>
             <dependency>
