@@ -1,4 +1,4 @@
-package cn.cola.zentalk.server.enums;
+package cn.cola.zentalk.common.enums;
 
 
 import lombok.AllArgsConstructor;
@@ -75,7 +75,7 @@ public enum WebSocketResponseTypeEnum {
     /**
      * 响应类型
      */
-    private final Integer type;
+    private final int type;
 
     /**
      * 描述

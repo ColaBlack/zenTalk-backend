@@ -1,4 +1,4 @@
-package cn.cola.zentalk.server.enums;
+package cn.cola.zentalk.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +32,7 @@ public enum WebSocketRequestTypeEnum {
     /**
      * 请求类型编号
      */
-    private final Integer type;
+    private final int type;
 
     /**
      * 请求类型描述
