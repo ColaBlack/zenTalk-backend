@@ -1,6 +1,6 @@
 package cn.cola.zentalk.server.enums;
 
-import cn.cola.server.model.vo.*;
+
 import cn.cola.zentalk.server.model.vo.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
