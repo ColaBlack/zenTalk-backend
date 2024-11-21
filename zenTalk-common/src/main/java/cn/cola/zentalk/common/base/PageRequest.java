@@ -1,7 +1,6 @@
 package cn.cola.zentalk.common.base;
 
-
-import cn.cola.common.constant.CommonConstant;
+import cn.cola.zentalk.common.constant.CommonConstant;
 import lombok.Data;
 
 /**
