@@ -1,4 +1,4 @@
-package cn.cola.zentalk.server.service;
+package cn.cola.zentalk.server.user.service;
 
 
 import cn.cola.zentalk.model.po.User;

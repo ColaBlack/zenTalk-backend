@@ -1,4 +1,4 @@
-package cn.cola.zentalk.server.mapper;
+package cn.cola.zentalk.server.user.mapper;
 
 
 import cn.cola.zentalk.model.po.User;

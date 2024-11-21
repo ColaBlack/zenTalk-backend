@@ -37,3 +37,11 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
+wx:
+  mp:
+    callback: ${zenTalk.wx.callback}
+    configs:
+      - appId: ${zenTalk.wx.appId} # 第一个公众号的appid
+        secret: ${zenTalk.wx.secretKey} # 公众号的appsecret
+        token: ${zenTalk.wx.token} # 接口配置里的Token值
+        aesKey: ${zenTalk.wx.aesKey} # 接口配置里的EncodingAESKey值

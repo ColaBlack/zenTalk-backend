@@ -1,4 +1,4 @@
-package cn.cola.zentalk.server.controller;
+package cn.cola.zentalk.server.user.controller;
 
 import cn.cola.zentalk.common.base.BaseResponse;
 import cn.cola.zentalk.common.constant.UserConstant;
@@ -10,7 +10,7 @@ import cn.cola.zentalk.common.utils.ResultUtils;
 import cn.cola.zentalk.model.dto.user.LoginDTO;
 import cn.cola.zentalk.model.dto.user.RegisterDTO;
 import cn.cola.zentalk.model.vo.UserVO;
-import cn.cola.zentalk.server.service.UserService;
+import cn.cola.zentalk.server.user.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
