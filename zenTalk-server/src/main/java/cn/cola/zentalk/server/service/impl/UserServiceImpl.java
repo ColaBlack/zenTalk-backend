@@ -225,6 +225,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     /**
+     * 验证登录状态
+     * @param token 登录token
+     * @return 验证结果
+     */
+    @Override
+    public boolean validLoginStatus(String token) {
+        // 验证token是否在redis缓存中
+        RMapCache<String, String> tokenMap = redissonClient.getMapCache(UserConstant.USER_LOGIN_STATE);
+        UserVO userVO = JwtUtils.verifyAndGetUserVO(token);
+        if (userVO != null) {
+            return tokenMap.containsKey(userVO.getUserId().toString());
+        }
+        return false;
+    }
+
+    /**
      * 验证登录参数
      *
      * @param userAccount 账号

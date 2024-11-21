@@ -68,4 +68,10 @@ public interface UserService extends IService<User> {
             HttpServletRequest request,
             HttpServletResponse response);
 
+    /**
+     * 验证登录状态
+     * @param token 登录token
+     * @return 验证结果
+     */
+    public boolean validLoginStatus(String token);
 }
