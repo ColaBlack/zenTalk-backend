@@ -84,7 +84,7 @@ public class WebSocketServiceImpl implements WebSocketService {
         int code;
         do {
             code = RandomUtil.randomInt(100000, 999999);
-        } while (Objects.isNull(LOGIN_MAP.getIfPresent(code)));
+        } while (!Objects.isNull(LOGIN_MAP.getIfPresent(code)));
         return code;
     }
 }
