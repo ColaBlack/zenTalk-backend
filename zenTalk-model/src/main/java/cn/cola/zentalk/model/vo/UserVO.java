@@ -1,5 +1,6 @@
 package cn.cola.zentalk.model.vo;
 
+import cn.cola.zentalk.model.po.User;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -21,6 +22,11 @@ public class UserVO implements Serializable {
      * 用户昵称
      */
     private String nickname;
+
+    /**
+     * 用户邮箱
+     */
+    private String email;
 
     /**
      * 用户头像
@@ -68,4 +74,19 @@ public class UserVO implements Serializable {
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
+
+    public UserVO(User user) {
+        this.userId = user.getUserId();
+        this.nickname = user.getNickname();
+        this.email = user.getEmail();
+        this.userAvatar = user.getUserAvatar();
+        this.gender = user.getGender();
+        this.activeStatus = user.getActiveStatus();
+        this.lastOnlineTime = user.getLastOnlineTime();
+        this.ipInfo = user.getIpInfo();
+        this.itemId = user.getItemId();
+        this.role = user.getRole();
+        this.createTime = user.getCreateTime();
+        this.updateTime = user.getUpdateTime();
+    }
 }

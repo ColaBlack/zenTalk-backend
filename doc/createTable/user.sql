@@ -9,6 +9,8 @@ create table user
     user_id          bigint unsigned auto_increment comment '用户id'
         primary key,
     nickname         varchar(20)                         null comment '用户昵称',
+    password         varchar(256)                        not null comment '用户密码',
+    email            varchar(256)                        not null comment '用户邮箱',
     user_avatar      varchar(255)                        null comment '用户头像',
     gender           int       default 0                 null comment '性别 0.未知 1.男 2.女',
     active_status    int       default 2                 null comment '在线状态 1在线 2离线',
@@ -33,3 +35,4 @@ create index idx_create_time
 
 create index idx_update_time
     on user (update_time);
+

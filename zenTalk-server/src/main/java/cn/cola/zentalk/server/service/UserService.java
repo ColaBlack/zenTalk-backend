@@ -22,7 +22,7 @@ public interface UserService extends IService<User> {
      * @param email       邮箱
      * @return 发送结果
      */
-    public String sendCode(String userAccount, String email);
+    String sendCode(String userAccount, String email);
 
     /**
      * 注册服务
@@ -33,13 +33,14 @@ public interface UserService extends IService<User> {
      * @param email         邮箱
      * @param code          验证码
      * @return 注册结果
+     * @throws Exception 注册异常
      */
-    public String register(
+    String register(
             String userAccount,
             String password,
             String checkPassword,
             String email,
-            String code);
+            String code) throws Exception;
 
     /**
      * 登录服务
@@ -50,7 +51,7 @@ public interface UserService extends IService<User> {
      * @param response    servlet响应对象，用于将jwt存入cookie
      * @return 登录结果
      */
-    public UserVO login(
+    UserVO login(
             String userAccount,
             String password,
             HttpServletRequest request,
@@ -63,7 +64,7 @@ public interface UserService extends IService<User> {
      * @param response servlet响应对象，用于清除cookie
      * @return 注销结果
      */
-    public String logout(
+    String logout(
             HttpServletRequest request,
             HttpServletResponse response);
 

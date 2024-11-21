@@ -7,9 +7,10 @@
     <resultMap id="BaseResultMap" type="cn.cola.zentalk.model.po.User">
             <id property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
             <result property="userAvatar" column="user_avatar" jdbcType="VARCHAR"/>
             <result property="gender" column="gender" jdbcType="INTEGER"/>
-            <result property="openId" column="open_id" jdbcType="CHAR"/>
             <result property="activeStatus" column="active_status" jdbcType="INTEGER"/>
             <result property="lastOnlineTime" column="last_online_time" jdbcType="TIMESTAMP"/>
             <result property="ipInfo" column="ip_info" jdbcType="VARCHAR"/>
@@ -21,10 +22,10 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        user_id,nickname,user_avatar,
-        gender,open_id,active_status,
-        last_online_time,ip_info,item_id,
-        role,has_deleted,create_time,
-        update_time
+        user_id,nickname,password,
+        email,user_avatar,gender,
+        active_status,last_online_time,ip_info,
+        item_id,role,has_deleted,
+        create_time,update_time
     </sql>
 </mapper>

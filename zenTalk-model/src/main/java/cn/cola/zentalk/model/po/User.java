@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户表PO
+ * 用户表
  *
  * @author ColaBlack
  * @TableName user
@@ -25,6 +25,16 @@ public class User implements Serializable {
      * 用户昵称
      */
     private String nickname;
+
+    /**
+     * 用户密码
+     */
+    private String password;
+
+    /**
+     * 用户邮箱
+     */
+    private String email;
 
     /**
      * 用户头像
