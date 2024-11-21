@@ -73,5 +73,5 @@ public interface UserService extends IService<User> {
      * @param token 登录token
      * @return 验证结果
      */
-    public boolean validLoginStatus(String token);
+    boolean validLoginStatus(String token);
 }

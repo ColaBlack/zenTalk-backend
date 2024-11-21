@@ -34,6 +34,11 @@ public class WxMpConfiguration {
     private final ScanHandler scanHandler;
     private final WxMpProperties properties;
 
+    /**
+     * 微信服务配置
+     *
+     * @return WxMpService Bean
+     */
     @Bean
     public WxMpService wxMpService() {
         final List<WxMpProperties.MpConfig> configs = this.properties.getConfigs();
@@ -56,6 +61,12 @@ public class WxMpConfiguration {
         return service;
     }
 
+    /**
+     * 配置不同消息的处理器
+     *
+     * @param wxMpService service Bean
+     * @return 路由
+     */
     @Bean
     public WxMpMessageRouter messageRouter(WxMpService wxMpService) {
         final WxMpMessageRouter newRouter = new WxMpMessageRouter(wxMpService);
