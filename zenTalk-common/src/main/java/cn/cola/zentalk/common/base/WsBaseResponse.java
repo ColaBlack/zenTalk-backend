@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WebSocketBaseResponse<T> implements Serializable {
+public class WsBaseResponse<T> implements Serializable {
 
     /**
      * 响应类型

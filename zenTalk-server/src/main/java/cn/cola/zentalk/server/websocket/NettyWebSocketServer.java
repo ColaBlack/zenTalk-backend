@@ -1,6 +1,6 @@
 package cn.cola.zentalk.server.websocket;
 
-import cn.cola.zentalk.server.websocket.controller.WebSocketHandler;
+import cn.cola.zentalk.server.websocket.controller.WsHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -92,7 +92,7 @@ public class NettyWebSocketServer {
                         // 升级http协议为websocket协议，增加处理WebSocket消息的处理器
                         pipeline.addLast(new WebSocketServerProtocolHandler("/"));
                         // 自定义handler ，处理业务逻辑
-                        pipeline.addLast(new WebSocketHandler());
+                        pipeline.addLast(new WsHandler());
                     }
                 });
 

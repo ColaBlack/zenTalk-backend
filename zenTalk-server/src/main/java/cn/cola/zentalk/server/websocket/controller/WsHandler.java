@@ -1,8 +1,8 @@
 package cn.cola.zentalk.server.websocket.controller;
 
-import cn.cola.zentalk.common.base.WebSocketBaseRequest;
+import cn.cola.zentalk.common.base.WsBaseRequest;
 import cn.cola.zentalk.common.enums.WebSocketRequestTypeEnum;
-import cn.cola.zentalk.server.websocket.service.WebSocketService;
+import cn.cola.zentalk.server.websocket.service.WsService;
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.json.JSONUtil;
 import io.netty.channel.ChannelHandlerContext;
@@ -19,17 +19,17 @@ import org.slf4j.LoggerFactory;
  *
  * @author ColaBlack
  */
-public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+public class WsHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     /**
      * 日志对象
      */
-    private static final Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(WsHandler.class);
 
     /**
      * WebSocket服务
      */
-    private WebSocketService webSocketService;
+    private WsService wsService;
 
     /**
      * 建立WebSocket连接处理
@@ -39,8 +39,8 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         log.info("WebSocket连接建立，通道ID：{}", ctx.channel().id());
-        webSocketService = SpringUtil.getBean(WebSocketService.class);
-        webSocketService.connect(ctx.channel());
+        wsService = SpringUtil.getBean(WsService.class);
+        wsService.connect(ctx.channel());
     }
 
     /**
@@ -57,8 +57,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
             IdleStateEvent event = (IdleStateEvent) evt;
             if (event.state() == IdleState.READER_IDLE) {
                 log.info("WebSocket读超时，即将下线该用户");
-                //todo 用户下线
-                ctx.channel().close();
+                wsService.userOffLine(ctx.channel());
             }
         }
     }
@@ -66,7 +65,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) {
         String text = msg.text();
-        WebSocketBaseRequest request = JSONUtil.toBean(text, WebSocketBaseRequest.class);
+        WsBaseRequest request = JSONUtil.toBean(text, WsBaseRequest.class);
         switch (WebSocketRequestTypeEnum.findEnumByType(request.getType())) {
             case AUTHORIZE:
                 System.out.println("WebSocket握手成功");
@@ -74,12 +73,22 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
             case HEARTBEAT:
                 break;
             case LOGIN:
-                webSocketService.getLoginCode(ctx.channel());
+                wsService.getLoginCode(ctx.channel());
                 break;
             default:
                 log.error("未知的请求类型");
                 ctx.channel().writeAndFlush(new TextWebSocketFrame("未知的请求类型"));
                 break;
         }
+    }
+
+    /**
+     * 用户主动下线
+     *
+     * @param ctx 上下文
+     */
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) {
+        wsService.userOffLine(ctx.channel());
     }
 }

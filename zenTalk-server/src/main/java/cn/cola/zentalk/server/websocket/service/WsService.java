@@ -7,7 +7,7 @@ import io.netty.channel.Channel;
  *
  * @author ColaBlack
  */
-public interface WebSocketService {
+public interface WsService {
     /**
      * 建立连接，将channel存储到一个hashmap中
      *
@@ -21,4 +21,11 @@ public interface WebSocketService {
      * @param channel 登录频道
      */
     void getLoginCode(Channel channel);
+
+    /**
+     * 用户下线
+     *
+     * @param channel 通道
+     */
+    void userOffLine(Channel channel);
 }

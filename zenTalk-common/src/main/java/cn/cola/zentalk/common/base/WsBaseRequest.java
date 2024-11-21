@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author ColaBlack
  */
 @Data
-public class WebSocketBaseRequest implements Serializable {
+public class WsBaseRequest implements Serializable {
     /**
      * 请求类型
      *
