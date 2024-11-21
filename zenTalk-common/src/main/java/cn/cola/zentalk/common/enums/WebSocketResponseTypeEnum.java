@@ -17,15 +17,15 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 public enum WebSocketResponseTypeEnum {
-//    /**
-//     * 登录二维码返回
-//     */
-//    SENT_LOGIN_URL(1, "登录二维码返回", WSLoginUrl.class),
-//
+    /**
+     * 登录二维码返回
+     */
+    SENT_LOGIN_URL(1, "登录二维码返回"),
+
     /**
      * 用户扫描二维码成功等待授权
      */
-    LOGIN_SCAN_SUCCESS(2, "用户扫描成功等待授权", null);
+    LOGIN_SCAN_SUCCESS(2, "用户扫描成功等待授权");
 //
 //    /**
 //     * 用户登录成功返回用户信息
@@ -81,11 +81,6 @@ public enum WebSocketResponseTypeEnum {
      * 描述
      */
     private final String desc;
-
-    /**
-     * 响应类
-     */
-    private final Class<?> dataClass;
 
     /**
      * 缓存类型和枚举的映射关系

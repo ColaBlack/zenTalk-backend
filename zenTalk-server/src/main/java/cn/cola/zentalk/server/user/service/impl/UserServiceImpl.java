@@ -1,4 +1,4 @@
-package cn.cola.zentalk.server.user.service;
+package cn.cola.zentalk.server.user.service.impl;
 
 
 import cn.cola.zentalk.common.constant.UserConstant;
@@ -9,6 +9,7 @@ import cn.cola.zentalk.common.utils.JwtUtils;
 import cn.cola.zentalk.model.po.User;
 import cn.cola.zentalk.model.vo.UserVO;
 import cn.cola.zentalk.server.mapper.UserMapper;
+import cn.cola.zentalk.server.user.service.UserService;
 import cn.cola.zentalk.server.utils.MailUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

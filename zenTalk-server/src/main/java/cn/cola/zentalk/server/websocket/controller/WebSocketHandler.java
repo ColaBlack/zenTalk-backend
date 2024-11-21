@@ -1,7 +1,9 @@
-package cn.cola.zentalk.server.websocket;
+package cn.cola.zentalk.server.websocket.controller;
 
 import cn.cola.zentalk.common.base.WebSocketBaseRequest;
 import cn.cola.zentalk.common.enums.WebSocketRequestTypeEnum;
+import cn.cola.zentalk.server.websocket.service.WebSocketService;
+import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.json.JSONUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -13,16 +15,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * WebSocket处理器
+ * WebSocket事件处理器，类似于controller层
  *
  * @author ColaBlack
  */
-public class NettyWebSocketServerHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     /**
      * 日志对象
      */
-    private static final Logger log = LoggerFactory.getLogger(NettyWebSocketServerHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
+
+    /**
+     * WebSocket服务
+     */
+    private WebSocketService webSocketService;
+
+    /**
+     * 建立WebSocket连接处理
+     *
+     * @param ctx 通道上下文
+     */
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) {
+        log.info("WebSocket连接建立，通道ID：{}", ctx.channel().id());
+        webSocketService = SpringUtil.getBean(WebSocketService.class);
+        webSocketService.connect(ctx.channel());
+    }
 
     /**
      * 事件处理器
@@ -50,11 +69,12 @@ public class NettyWebSocketServerHandler extends SimpleChannelInboundHandler<Tex
         WebSocketBaseRequest request = JSONUtil.toBean(text, WebSocketBaseRequest.class);
         switch (WebSocketRequestTypeEnum.findEnumByType(request.getType())) {
             case AUTHORIZE:
+                System.out.println("WebSocket握手成功");
+                break;
             case HEARTBEAT:
                 break;
             case LOGIN:
-                System.out.println("请求二维码");
-                ctx.channel().writeAndFlush(new TextWebSocketFrame("123"));
+                webSocketService.getLoginCode(ctx.channel());
                 break;
             default:
                 log.error("未知的请求类型");
