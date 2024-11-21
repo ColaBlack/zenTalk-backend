@@ -1,5 +1,6 @@
 package cn.cola.zentalk.server.wx.handler;
 
+import cn.cola.zentalk.server.wx.adapter.TextAdapter;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
@@ -21,7 +22,7 @@ public class ScanHandler extends AbstractHandler {
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMpXmlMessage, Map<String, Object> map,
                                     WxMpService wxMpService, WxSessionManager wxSessionManager) {
-        return null;
+        return TextAdapter.build("扫码成功", wxMpXmlMessage);
     }
 
 }
