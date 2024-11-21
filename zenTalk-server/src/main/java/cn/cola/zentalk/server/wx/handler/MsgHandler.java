@@ -19,9 +19,9 @@ public class MsgHandler extends AbstractHandler {
 
 
     @Override
-    public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
-                                    Map<String, Object> context, WxMpService weixinService,
-                                    WxSessionManager sessionManager) {
+    public WxMpXmlOutMessage handle(WxMpXmlMessage wxMpXmlMessage,
+                                    Map<String, Object> context, WxMpService wxMpService,
+                                    WxSessionManager wxSessionManager) {
         return null;
     }
 

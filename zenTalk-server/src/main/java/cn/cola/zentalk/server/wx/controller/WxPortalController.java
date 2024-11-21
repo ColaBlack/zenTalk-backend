@@ -1,11 +1,17 @@
 package cn.cola.zentalk.server.wx.controller;
 
+import cn.cola.zentalk.common.enums.ErrorCode;
+import cn.cola.zentalk.common.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
+import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
+import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
+import me.chanjar.weixin.mp.bean.result.WxMpQrCodeTicket;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -25,6 +31,14 @@ public class WxPortalController {
     private final WxMpService wxService;
 
     private final WxMpMessageRouter messageRouter;
+
+    @GetMapping("/test")
+    public String getQrcode() throws WxErrorException {
+        WxMpQrCodeTicket qrCodeTicket = wxService.getQrcodeService().qrCodeCreateTmpTicket("test", 604800);
+        String url = qrCodeTicket.getUrl();
+        System.out.println(url);
+        return url;
+    }
 
     @GetMapping(produces = "text/plain;charset=utf-8")
     public String authGet(@RequestParam(name = "signature", required = false) String signature,
@@ -48,6 +62,13 @@ public class WxPortalController {
 
     @GetMapping("/callBack")
     public RedirectView callBack(@RequestParam String code) {
+        try {
+            WxOAuth2AccessToken accessToken = wxService.getOAuth2Service().getAccessToken(code);
+            WxOAuth2UserInfo userInfo = wxService.getOAuth2Service().getUserInfo(accessToken, "zh_CN");
+            System.out.println(userInfo);
+        } catch (WxErrorException e) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "微信认证失败");
+        }
         return null;
     }
 

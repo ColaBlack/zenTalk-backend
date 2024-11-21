@@ -20,10 +20,10 @@ import java.util.Map;
 @Slf4j
 public class LogHandler extends AbstractHandler {
     @Override
-    public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
+    public WxMpXmlOutMessage handle(WxMpXmlMessage wxMpXmlMessage,
                                     Map<String, Object> context, WxMpService wxMpService,
-                                    WxSessionManager sessionManager) {
-        log.info("\n收到微信的请求消息，内容：{}", JSONUtil.toJsonStr(wxMessage));
+                                    WxSessionManager wxSessionManager) {
+        log.info("\n收到微信的请求消息，内容：{}", JSONUtil.toJsonStr(wxMpXmlMessage));
         return null;
     }
 
