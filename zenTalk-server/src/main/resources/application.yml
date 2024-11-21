@@ -22,7 +22,7 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 server:
-  port: 1221
+  port: ${zenTalk.server.port}
   servlet:
     context-path: /api
 mybatis-plus:
@@ -42,6 +42,6 @@ wx:
     callback: ${zenTalk.wx.callback}
     configs:
       - appId: ${zenTalk.wx.appId} # 第一个公众号的appid
-        secret: ${zenTalk.wx.secretKey} # 公众号的appsecret
+        secret: ${zenTalk.wx.appSecret} # 公众号的appsecret
         token: ${zenTalk.wx.token} # 接口配置里的Token值
         aesKey: ${zenTalk.wx.aesKey} # 接口配置里的EncodingAESKey值

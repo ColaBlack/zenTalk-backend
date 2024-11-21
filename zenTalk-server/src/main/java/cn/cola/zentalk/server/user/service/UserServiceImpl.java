@@ -8,7 +8,7 @@ import cn.cola.zentalk.common.utils.EncryptUtils;
 import cn.cola.zentalk.common.utils.JwtUtils;
 import cn.cola.zentalk.model.po.User;
 import cn.cola.zentalk.model.vo.UserVO;
-import cn.cola.zentalk.server.user.mapper.UserMapper;
+import cn.cola.zentalk.server.mapper.UserMapper;
 import cn.cola.zentalk.server.utils.MailUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
