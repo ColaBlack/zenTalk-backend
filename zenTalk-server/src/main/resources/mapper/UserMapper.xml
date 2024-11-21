@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.cola.zentalk.server.mapper.UserMapper">
 
-    <resultMap id="BaseResultMap" type="cn.cola.zentalk.server.model.po.User">
+    <resultMap id="BaseResultMap" type="cn.cola.zentalk.model.po.User">
             <id property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
             <result property="userAvatar" column="user_avatar" jdbcType="VARCHAR"/>

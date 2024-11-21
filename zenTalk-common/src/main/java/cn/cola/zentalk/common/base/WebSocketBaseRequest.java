@@ -1,4 +1,4 @@
-package cn.cola.zentalk.common;
+package cn.cola.zentalk.common.base;
 
 
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author ColaBlack
  */
 @Data
-public class BaseRequest implements Serializable {
+public class WebSocketBaseRequest implements Serializable {
     /**
      * 请求类型
      *

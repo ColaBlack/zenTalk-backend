@@ -1,6 +1,6 @@
 package cn.cola.zentalk.server.websocket;
 
-import cn.cola.zentalk.common.BaseRequest;
+import cn.cola.zentalk.common.base.WebSocketBaseRequest;
 import cn.cola.zentalk.common.enums.WebSocketRequestTypeEnum;
 import cn.hutool.json.JSONUtil;
 import io.netty.channel.ChannelHandlerContext;
@@ -47,7 +47,7 @@ public class NettyWebSocketServerHandler extends SimpleChannelInboundHandler<Tex
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) {
         String text = msg.text();
-        BaseRequest request = JSONUtil.toBean(text, BaseRequest.class);
+        WebSocketBaseRequest request = JSONUtil.toBean(text, WebSocketBaseRequest.class);
         switch (WebSocketRequestTypeEnum.findEnumByType(request.getType())) {
             case AUTHORIZE:
             case HEARTBEAT:

@@ -1,4 +1,4 @@
-package cn.cola.zentalk.server.model.po;
+package cn.cola.zentalk.model.po;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
@@ -35,11 +35,6 @@ public class User implements Serializable {
      * 性别 0.未知 1.男 2.女
      */
     private Integer gender;
-
-    /**
-     * 微信openid
-     */
-    private String openId;
 
     /**
      * 在线状态 1在线 2离线
