@@ -3,6 +3,9 @@ spring:
     active: dev
   application:
     name: zenTalk-server
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   datasource:
     url: jdbc:mysql://${zenTalk.mysql.host}:${zenTalk.mysql.port}/${zenTalk.mysql.database}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: ${zenTalk.mysql.username}
@@ -18,3 +21,19 @@ spring:
       write_dates_as_timestamps: true
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+server:
+  port: 1221
+  servlet:
+    context-path: /api
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: is_delete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn

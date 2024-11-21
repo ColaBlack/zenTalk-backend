@@ -34,7 +34,7 @@ public class NettyWebSocketServer {
     /**
      * WebSocket 端口
      */
-    public static final int WEB_SOCKET_PORT = 1221;
+    public static final int WEB_SOCKET_PORT = 1223;
 
     /**
      * 主事件循环组，负责监听客户端连接
