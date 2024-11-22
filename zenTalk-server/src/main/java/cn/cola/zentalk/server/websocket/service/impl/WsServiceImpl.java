@@ -7,6 +7,7 @@ import cn.cola.zentalk.common.exception.BusinessException;
 import cn.cola.zentalk.model.po.User;
 import cn.cola.zentalk.model.po.WebSocketInfo;
 import cn.cola.zentalk.model.vo.LoginVO;
+import cn.cola.zentalk.model.vo.UserVO;
 import cn.cola.zentalk.server.dao.UserDao;
 import cn.cola.zentalk.server.user.service.UserService;
 import cn.cola.zentalk.server.websocket.service.WsService;
@@ -112,7 +113,7 @@ public class WsServiceImpl implements WsService {
         User user = userDao.getById(userId);
         LOGIN_MAP.invalidate(code);
         // todo 获取token
-        String token = userService.login(userId);
+        String token = userService.login(new UserVO(user));
         LoginVO loginVO = new LoginVO(userId, user.getNickname(), user.getUserAvatar(), token);
         WsReturnUtils.success(channel, WsResponseEnum.LOGIN_SUCCESS, JSONUtil.toJsonStr(loginVO));
     }

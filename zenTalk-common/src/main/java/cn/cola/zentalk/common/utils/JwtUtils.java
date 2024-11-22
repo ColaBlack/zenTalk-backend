@@ -8,6 +8,8 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.jwt.JWT;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
 
@@ -16,11 +18,11 @@ import java.util.Date;
  *
  * @author ColaBlack
  */
+@Configuration
 public class JwtUtils {
 
-    private JwtUtils() {
-    }
-
+    @Value("${zenTall.jwt.secret}")
+    private String secret;
 
     /**
      * 根据 userVO 生成 jwt
@@ -28,12 +30,12 @@ public class JwtUtils {
      * @param userVO 携带数据
      * @return jwt
      */
-    public static String generateToken(UserVO userVO) {
+    public String generateToken(UserVO userVO) {
         JWT jwt = JWT.create();
         // 设置携带数据
         jwt.setPayload(UserConstant.USER_LOGIN_STATE, userVO);
         // 设置密钥
-        jwt.setKey(UserConstant.JWT_SECRET_KEY);
+        jwt.setKey(secret.getBytes());
         // 设置过期时间
         jwt.setExpiresAt(new Date(System.currentTimeMillis() + UserConstant.JWT_EXPIRE * 1000));
         return jwt.sign();
@@ -45,8 +47,8 @@ public class JwtUtils {
      * @param token token
      * @return 是否通过校验
      */
-    public static boolean verify(String token) {
-        return !StringUtils.isBlank(token) && JWT.of(token).setKey(UserConstant.JWT_SECRET_KEY).verify();
+    public boolean verify(String token) {
+        return !StringUtils.isBlank(token) && JWT.of(token).setKey(secret.getBytes()).verify();
     }
 
     /**
@@ -55,13 +57,13 @@ public class JwtUtils {
      * @param token token
      * @return userVO
      */
-    public static UserVO verifyAndGetUserVO(String token) {
+    public UserVO verifyAndGetUserVO(String token) {
         // 验证数据
         if (!verify(token)) {
             return null;
         }
         // 获取jwt
-        JWT jwt = JWT.of(token).setKey(UserConstant.JWT_SECRET_KEY);
+        JWT jwt = JWT.of(token).setKey(secret.getBytes());
         Object payload = jwt.getPayload(UserConstant.USER_LOGIN_STATE);
         ThrowUtils.throwIf(payload == null, ErrorCode.NOT_LOGIN_ERROR);
         ThrowUtils.throwIf(!(payload instanceof JSONObject), ErrorCode.NOT_LOGIN_ERROR);

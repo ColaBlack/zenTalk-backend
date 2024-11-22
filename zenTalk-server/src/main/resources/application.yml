@@ -21,6 +21,8 @@ spring:
       write_dates_as_timestamps: true
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: ${zenTalk.server.port}
   servlet:
@@ -45,3 +47,6 @@ wx:
         secret: ${zenTalk.wx.appSecret} # 公众号的appsecret
         token: ${zenTalk.wx.token} # 接口配置里的Token值
         aesKey: ${zenTalk.wx.aesKey} # 接口配置里的EncodingAESKey值
+zenTalk:
+  jwt:
+    secret: ${zenTalk.jwt.secret}

@@ -1,6 +1,7 @@
 package cn.cola.zentalk.server.user.service;
 
 import cn.cola.zentalk.model.po.User;
+import cn.cola.zentalk.model.vo.UserVO;
 
 /**
  * @author ColaBlack
@@ -20,8 +21,8 @@ public interface UserService {
     /**
      * 登录服务
      *
-     * @param userId 用户id
+     * @param userVO 用户VO对象
      * @return token
      */
-    String login(Long userId);
+    String login(UserVO userVO);
 }

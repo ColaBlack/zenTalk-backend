@@ -1,7 +1,9 @@
 package cn.cola.zentalk.server.user.service.impl;
 
 
+import cn.cola.zentalk.common.utils.JwtUtils;
 import cn.cola.zentalk.model.po.User;
+import cn.cola.zentalk.model.vo.UserVO;
 import cn.cola.zentalk.server.dao.UserDao;
 import cn.cola.zentalk.server.user.service.UserService;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ import javax.annotation.Resource;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Resource
+    private JwtUtils jwtUtils;
 
     @Resource
     private UserDao userDao;
@@ -36,11 +41,12 @@ public class UserServiceImpl implements UserService {
     /**
      * 登录服务
      *
-     * @param userId 用户id
+     * @param userVO 用户VO对象
      * @return token
      */
     @Override
-    public String login(Long userId) {
-        return "12313";
+    public String login(UserVO userVO) {
+
+        return jwtUtils.generateToken(userVO);
     }
 }

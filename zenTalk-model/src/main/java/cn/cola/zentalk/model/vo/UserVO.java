@@ -1,5 +1,7 @@
 package cn.cola.zentalk.model.vo;
 
+import cn.cola.zentalk.model.po.User;
+import cn.hutool.core.bean.BeanUtil;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -71,5 +73,9 @@ public class UserVO implements Serializable {
      * 更新时间
      */
     private Date updateTime;
+
+    public UserVO(User user) {
+        BeanUtil.copyProperties(user, this);
+    }
 
 }
