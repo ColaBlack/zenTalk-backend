@@ -74,6 +74,7 @@ public class WsServiceImpl implements WsService {
     public void getLoginCode(Channel channel) {
         // 生成随机验证码
         int code = generateCode(channel);
+        LOGIN_MAP.put(code, channel);
         WxMpQrCodeTicket qrCodeTicket;
         try {
             qrCodeTicket = wxMpService.getQrcodeService().qrCodeCreateTmpTicket(code, WsConstant.CODE_EXPIRE_TIME);

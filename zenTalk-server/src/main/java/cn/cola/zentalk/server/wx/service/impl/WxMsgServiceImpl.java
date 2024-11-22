@@ -92,6 +92,7 @@ public class WxMsgServiceImpl implements WxMsgService {
         if (StringUtils.isAnyBlank(user.getUserAvatar())) {
             user.setUserAvatar(userInfo.getHeadImgUrl());
             user.setNickname(userInfo.getNickname());
+            userDao.updateById(user);
         }
         Integer code = WAIT_AUTHOR_MAP.remove(openid);
         wsService.scanToLogin(code, user.getUserId());
