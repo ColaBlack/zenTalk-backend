@@ -11,20 +11,15 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * WebSocket事件处理器，类似于controller层
  *
  * @author ColaBlack
  */
+@Slf4j
 public class WsHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
-
-    /**
-     * 日志对象
-     */
-    private static final Logger log = LoggerFactory.getLogger(WsHandler.class);
 
     /**
      * WebSocket服务

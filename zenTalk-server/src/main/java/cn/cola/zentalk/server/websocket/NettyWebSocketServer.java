@@ -15,7 +15,6 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
-import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.NettyRuntime;
 import io.netty.util.concurrent.Future;
 import lombok.extern.slf4j.Slf4j;
@@ -84,7 +83,8 @@ public class NettyWebSocketServer {
                     protected void initChannel(SocketChannel socketChannel) {
                         ChannelPipeline pipeline = socketChannel.pipeline();
                         // 心跳检测，如果30秒内客户端没有读写，则认为其已经下线，关闭连接
-                        pipeline.addLast(new IdleStateHandler(30, 0, 0));
+                        // todo 上线时记得打开
+//                        pipeline.addLast(new IdleStateHandler(30, 0, 0));
                         pipeline.addLast(new HttpServerCodec());
                         pipeline.addLast(new ChunkedWriteHandler());
                         // 聚合http消息，解决浏览器发送大量数据时，会发出多次http请求的问题

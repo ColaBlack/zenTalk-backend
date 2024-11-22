@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  */
 @AllArgsConstructor
 @Getter
-public enum WebSocketResponseTypeEnum {
+public enum WsResponseEnum {
     /**
      * 登录二维码返回
      */
@@ -25,12 +25,12 @@ public enum WebSocketResponseTypeEnum {
     /**
      * 用户扫描二维码成功等待授权
      */
-    LOGIN_SCAN_SUCCESS(2, "用户扫描成功等待授权");
-//
-//    /**
-//     * 用户登录成功返回用户信息
-//     */
-//    LOGIN_SUCCESS(3, "用户登录成功返回用户信息", WSLoginSuccess.class),
+    LOGIN_SCAN_SUCCESS(2, "用户扫描成功等待授权"),
+
+    /**
+     * 用户登录成功返回用户信息
+     */
+    LOGIN_SUCCESS(3, "用户登录成功返回用户信息");
 //
 //    /**
 //     * 新消息
@@ -85,9 +85,9 @@ public enum WebSocketResponseTypeEnum {
     /**
      * 缓存类型和枚举的映射关系
      */
-    private static final Map<Integer, WebSocketResponseTypeEnum> CACHE = Arrays
-            .stream(WebSocketResponseTypeEnum.values())
-            .collect(Collectors.toMap(WebSocketResponseTypeEnum::getType, Function.identity()));
+    private static final Map<Integer, WsResponseEnum> CACHE = Arrays
+            .stream(WsResponseEnum.values())
+            .collect(Collectors.toMap(WsResponseEnum::getType, Function.identity()));
 
     /**
      * 根据请求类型编号获取枚举对象
@@ -95,7 +95,7 @@ public enum WebSocketResponseTypeEnum {
      * @param type 请求类型编号
      * @return 请求类型枚举对象
      */
-    public static WebSocketResponseTypeEnum getEnumByType(Integer type) {
+    public static WsResponseEnum getEnumByType(Integer type) {
         return CACHE.get(type);
     }
 }

@@ -2,6 +2,7 @@ package cn.cola.zentalk.server.wx.controller;
 
 import cn.cola.zentalk.common.enums.ErrorCode;
 import cn.cola.zentalk.common.exception.BusinessException;
+import cn.cola.zentalk.server.wx.service.WxMsgService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
@@ -11,10 +12,11 @@ import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
-import me.chanjar.weixin.mp.bean.result.WxMpQrCodeTicket;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.annotation.Resource;
 
 /**
  * 开放给微信的API接口
@@ -28,17 +30,12 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("wx/portal/public")
 public class WxPortalController {
 
-    private final WxMpService wxService;
+    private final WxMpService wxMpService;
 
     private final WxMpMessageRouter messageRouter;
 
-    @GetMapping("/test")
-    public String getQrcode() throws WxErrorException {
-        WxMpQrCodeTicket qrCodeTicket = wxService.getQrcodeService().qrCodeCreateTmpTicket("test", 604800);
-        String url = qrCodeTicket.getUrl();
-        System.out.println(url);
-        return url;
-    }
+    @Resource
+    private WxMsgService wxMsgService;
 
     @GetMapping(produces = "text/plain;charset=utf-8")
     public String authGet(@RequestParam(name = "signature", required = false) String signature,
@@ -53,7 +50,7 @@ public class WxPortalController {
         }
 
 
-        if (wxService.checkSignature(timestamp, nonce, signature)) {
+        if (wxMpService.checkSignature(timestamp, nonce, signature)) {
             return echostr;
         }
 
@@ -63,13 +60,14 @@ public class WxPortalController {
     @GetMapping("/callBack")
     public RedirectView callBack(@RequestParam String code) {
         try {
-            WxOAuth2AccessToken accessToken = wxService.getOAuth2Service().getAccessToken(code);
-            WxOAuth2UserInfo userInfo = wxService.getOAuth2Service().getUserInfo(accessToken, "zh_CN");
-            System.out.println(userInfo);
+            WxOAuth2AccessToken accessToken = wxMpService.getOAuth2Service().getAccessToken(code);
+            WxOAuth2UserInfo userInfo = wxMpService.getOAuth2Service().getUserInfo(accessToken, "zh_CN");
+            wxMsgService.authorize(userInfo);
+            // todo 后期换为前端页面
+            return new RedirectView("www.baidu.com");
         } catch (WxErrorException e) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "微信认证失败");
         }
-        return null;
     }
 
     @PostMapping(produces = "application/xml; charset=UTF-8")
@@ -84,7 +82,7 @@ public class WxPortalController {
                         + " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
                 openid, signature, encType, msgSignature, timestamp, nonce, requestBody);
 
-        if (!wxService.checkSignature(timestamp, nonce, signature)) {
+        if (!wxMpService.checkSignature(timestamp, nonce, signature)) {
             throw new IllegalArgumentException("非法请求，可能属于伪造的请求！");
         }
 
@@ -100,7 +98,7 @@ public class WxPortalController {
             out = outMessage.toXml();
         } else if ("aes".equalsIgnoreCase(encType)) {
             // aes加密的消息
-            WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(requestBody, wxService.getWxMpConfigStorage(),
+            WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(requestBody, wxMpService.getWxMpConfigStorage(),
                     timestamp, nonce, msgSignature);
             log.debug("\n消息解密后内容为：\n{} ", inMessage.toString());
             WxMpXmlOutMessage outMessage = this.route(inMessage);
@@ -108,7 +106,7 @@ public class WxPortalController {
                 return "";
             }
 
-            out = outMessage.toEncryptedXml(wxService.getWxMpConfigStorage());
+            out = outMessage.toEncryptedXml(wxMpService.getWxMpConfigStorage());
         }
 
         log.debug("\n组装回复信息：{}", out);

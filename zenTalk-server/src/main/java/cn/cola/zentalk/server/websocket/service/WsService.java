@@ -28,4 +28,13 @@ public interface WsService {
      * @param channel 通道
      */
     void userOffLine(Channel channel);
+
+    /**
+     * 扫码登录
+     *
+     * @param code   授权码
+     * @param userId 用户id
+     */
+    void scanToLogin(Integer code, Long userId);
 }
+

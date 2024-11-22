@@ -1,19 +1,25 @@
 package cn.cola.zentalk.model.po;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户表
+ * 用户PO
  *
  * @author ColaBlack
  * @TableName user
  */
 @TableName(value = "user")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class User implements Serializable {
     /**
      * 用户id
@@ -27,16 +33,6 @@ public class User implements Serializable {
     private String nickname;
 
     /**
-     * 用户密码
-     */
-    private String password;
-
-    /**
-     * 用户邮箱
-     */
-    private String email;
-
-    /**
      * 用户头像
      */
     private String userAvatar;
@@ -45,6 +41,11 @@ public class User implements Serializable {
      * 性别 0.未知 1.男 2.女
      */
     private Integer gender;
+
+    /**
+     * 微信openid
+     */
+    private String openId;
 
     /**
      * 在线状态 1在线 2离线

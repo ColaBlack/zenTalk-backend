@@ -1,5 +1,6 @@
 package cn.cola.zentalk.common.base;
 
+import cn.cola.zentalk.common.enums.WsResponseEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class WsBaseResponse<T> implements Serializable {
     /**
      * 响应类型
      *
-     * @see cn.cola.zentalk.common.enums.WebSocketResponseTypeEnum
+     * @see WsResponseEnum
      */
     private int type;
 
