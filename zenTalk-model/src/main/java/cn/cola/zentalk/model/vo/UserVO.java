@@ -23,11 +23,6 @@ public class UserVO implements Serializable {
     private String nickname;
 
     /**
-     * 用户邮箱
-     */
-    private String email;
-
-    /**
      * 用户头像
      */
     private String userAvatar;
@@ -36,6 +31,11 @@ public class UserVO implements Serializable {
      * 性别 0.未知 1.男 2.女
      */
     private Integer gender;
+
+    /**
+     * 微信openid
+     */
+    private String openId;
 
     /**
      * 在线状态 1在线 2离线
@@ -71,7 +71,5 @@ public class UserVO implements Serializable {
      * 更新时间
      */
     private Date updateTime;
-
-    private static final long serialVersionUID = 1L;
 
 }
